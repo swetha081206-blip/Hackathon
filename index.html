@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareerLens | Student Portal & Authentication System</title>
+  <meta name="description" content="Modern Student Career Portal with secure authentication, profile management, resume upload, and coding portfolio integration.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Background Glow Accents -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <!-- Main Container -->
+  <div id="app" class="app-container">
+
+    <!-- Top Navigation Bar (Shared) -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">Career<span class="highlight">Lens</span></span>
+          <span class="brand-sub">Student Career Hub</span>
+        </div>
+      </div>
+
+      <div class="header-right" id="headerNavActions">
+        <div class="portal-badge" id="portalBadge">
+          <span class="pulse-dot"></span>
+          <span>College Placement Portal</span>
+        </div>
+        <button id="navLogoutBtn" class="btn btn-ghost hidden">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>Sign Out</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- AUTHENTICATION VIEW -->
+    <main id="authView" class="auth-wrapper">
+      <div class="auth-card-wrapper">
+        
+        <!-- Auth Tabs Header -->
+        <div class="auth-tabs-nav">
+          <button id="tabSignIn" class="tab-btn active">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+              <polyline points="10 17 15 12 10 7"></polyline>
+              <line x1="15" y1="12" x2="3" y2="12"></line>
+            </svg>
+            Sign In
+          </button>
+          <button id="tabSignUp" class="tab-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="8.5" cy="7" r="4"></circle>
+              <line x1="20" y1="8" x2="20" y2="14"></line>
+              <line x1="23" y1="11" x2="17" y2="11"></line>
+            </svg>
+            Student Sign Up
+          </button>
+        </div>
+
+        <!-- 1. SIGN IN FORM -->
+        <section id="signInSection" class="auth-card">
+          <div class="auth-card-intro">
+            <h2>Welcome Back, Student!</h2>
+            <p>Enter your registered credentials to access your Student Portal</p>
+          </div>
+
+          <form id="signInForm" autocomplete="on" novalidate>
+            <div class="form-group">
+              <label for="loginEmail">Email Address</label>
+              <div class="input-icon-wrap">
+                <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <input type="email" id="loginEmail" name="email" placeholder="student@college.edu" required>
+              </div>
+              <span class="field-error" id="loginEmailError"></span>
+            </div>
+
+            <div class="form-group">
+              <div class="label-row">
+                <label for="loginPassword">Password</label>
+                <button type="button" id="openForgotBtn" class="link-btn">Forgot Password?</button>
+              </div>
+              <div class="input-icon-wrap">
+                <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <input type="password" id="loginPassword" name="password" placeholder="••••••••••••" required>
+                <button type="button" class="password-toggle" data-target="loginPassword" aria-label="Toggle password visibility">
+                  <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                </button>
+              </div>
+              <span class="field-error" id="loginPasswordError"></span>
+            </div>
+
+            <div class="form-row-between">
+              <label class="custom-checkbox">
+                <input type="checkbox" id="rememberMe">
+                <span class="checkmark"></span>
+                <span class="checkbox-label">Remember my account</span>
+              </label>
+              <button type="button" id="fillDemoBtn" class="btn-demo-badge">Auto-fill Demo</button>
+            </div>
+
+            <button type="submit" id="signInSubmitBtn" class="btn btn-primary btn-block">
+              <span>Sign In to Student Portal</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </form>
+
+          <div class="auth-card-footer">
+            <p>Don't have an account yet? <button type="button" id="switchToSignUp" class="link-btn highlight">Register your profile</button></p>
+          </div>
+        </section>
+
+        <!-- 2. SIGN UP FORM -->
+        <section id="signUpSection" class="auth-card hidden">
+          <div class="auth-card-intro">
+            <h2>Create Student Profile</h2>
+            <p>Fill in your academic and personal information to get started</p>
+          </div>
+
+          <form id="signUpForm" novalidate>
+            <div class="form-grid-2">
+              
+              <!-- 1. Name -->
+              <div class="form-group">
+                <label for="regName">Full Name <span class="required">*</span></label>
+                <div class="input-icon-wrap">
+                  <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                  <input type="text" id="regName" placeholder="e.g. Swetha Ramesh" required>
+                </div>
+                <span class="field-error" id="regNameError"></span>
+              </div>
+
+              <!-- 2. Department -->
+              <div class="form-group">
+                <label for="regDepartment">Department <span class="required">*</span></label>
+                <div class="input-icon-wrap">
+                  <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                  </svg>
+                  <select id="regDepartment" required>
+                    <option value="" disabled selected>Select your Department</option>
+                    <option value="Computer Science and Engineering (CSE)">Computer Science and Engineering (CSE)</option>
+                    <option value="Information Technology (IT)">Information Technology (IT)</option>
+                    <option value="Artificial Intelligence & Data Science (AI & DS)">Artificial Intelligence & Data Science (AI & DS)</option>
+                    <option value="Electronics & Communication (ECE)">Electronics & Communication (ECE)</option>
+                    <option value="Electrical & Electronics (EEE)">Electrical & Electronics (EEE)</option>
+                    <option value="Mechanical Engineering (MECH)">Mechanical Engineering (MECH)</option>
+                    <option value="Civil Engineering">Civil Engineering</option>
+                    <option value="Other / Specialization">Other / Specialization</option>
+                  </select>
+                </div>
+                <span class="field-error" id="regDeptError"></span>
+              </div>
+
+              <!-- 3. Year -->
+              <div class="form-group">
+                <label for="regYear">Year of Study <span class="required">*</span></label>
+                <div class="input-icon-wrap">
+                  <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  <select id="regYear" required>
+                    <option value="" disabled selected>Select Current Year</option>
+                    <option value="1st Year">1st Year (Freshman)</option>
+                    <option value="2nd Year">2nd Year (Sophomore)</option>
+                    <option value="3rd Year">3rd Year (Pre-final)</option>
+                    <option value="4th Year">4th Year (Final Year)</option>
+                  </select>
+                </div>
+                <span class="field-error" id="regYearError"></span>
+              </div>
+
+              <!-- 4. College Name -->
+              <div class="form-group">
+                <label for="regCollege">College / University Name <span class="required">*</span></label>
+                <div class="input-icon-wrap">
+                  <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 21h18"></path>
+                    <path d="M5 21V7l7-4 7 4v14"></path>
+                    <path d="M9 10h1"></path>
+                    <path d="M14 10h1"></path>
+                    <path d="M9 14h1"></path>
+                    <path d="M14 14h1"></path>
+                    <path d="M9 18h1"></path>
+                    <path d="M14 18h1"></path>
+                  </svg>
+                  <input type="text" id="regCollege" placeholder="e.g. Anna University / PSG Tech" required>
+                </div>
+                <span class="field-error" id="regCollegeError"></span>
+              </div>
+
+              <!-- 5. Phone Number -->
+              <div class="form-group">
+                <label for="regPhone">Phone Number <span class="required">*</span></label>
+                <div class="input-icon-wrap">
+                  <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                  </svg>
+                  <input type="tel" id="regPhone" placeholder="10-digit mobile number" maxlength="10" required>
+                </div>
+                <span class="field-error" id="regPhoneError"></span>
+              </div>
+
+              <!-- 6. Email ID -->
+              <div class="form-group">
+                <label for="regEmail">Email Address <span class="required">*</span></label>
+                <div class="input-icon-wrap">
+                  <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                  <input type="email" id="regEmail" placeholder="student@domain.edu" required>
+                </div>
+                <span class="field-error" id="regEmailError"></span>
+              </div>
+
+              <!-- 7. Password -->
+              <div class="form-group">
+                <label for="regPassword">Password <span class="required">*</span></label>
+                <div class="input-icon-wrap">
+                  <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <input type="password" id="regPassword" placeholder="Minimum 6 characters" required>
+                  <button type="button" class="password-toggle" data-target="regPassword" aria-label="Toggle password visibility">
+                    <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </button>
+                </div>
+                <div class="password-strength-bar">
+                  <div class="strength-indicator" id="regStrengthMeter"></div>
+                </div>
+                <span class="field-hint" id="regStrengthText">Password strength: Weak</span>
+                <span class="field-error" id="regPasswordError"></span>
+              </div>
+
+              <!-- 8. Confirm Password -->
+              <div class="form-group">
+                <label for="regConfirmPassword">Confirm Password <span class="required">*</span></label>
+                <div class="input-icon-wrap">
+                  <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  </svg>
+                  <input type="password" id="regConfirmPassword" placeholder="Re-enter password" required>
+                  <button type="button" class="password-toggle" data-target="regConfirmPassword" aria-label="Toggle password visibility">
+                    <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </button>
+                </div>
+                <span class="field-error" id="regConfirmPasswordError"></span>
+              </div>
+
+            </div>
+
+            <button type="submit" id="signUpSubmitBtn" class="btn btn-primary btn-block">
+              <span>Create Account & Register</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </button>
+          </form>
+
+          <div class="auth-card-footer">
+            <p>Already have an account? <button type="button" id="switchToSignIn" class="link-btn highlight">Sign In here</button></p>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- 3. FORGOT PASSWORD MODAL / DIALOG -->
+    <div id="forgotPasswordModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="forgotTitle">
+      <div class="modal-box">
+        <div class="modal-header">
+          <div class="modal-icon-badge">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 id="forgotTitle">Reset Your Password</h3>
+            <p class="modal-desc">Verify your email with an instant code to change your password</p>
+          </div>
+          <button type="button" class="modal-close" id="closeForgotBtn" aria-label="Close modal">✕</button>
+        </div>
+
+        <!-- Step 1: Send Code -->
+        <div id="forgotStep1" class="modal-body">
+          <div class="form-group">
+            <label for="forgotEmail">Enter Registered Email</label>
+            <div class="input-icon-wrap">
+              <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              <input type="email" id="forgotEmail" placeholder="student@college.edu" required>
+            </div>
+            <span class="field-error" id="forgotEmailError"></span>
+          </div>
+
+          <button type="button" id="sendOtpBtn" class="btn btn-primary btn-block">
+            <span>Send Verification Code</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Step 2: Code Verification & Password Reset -->
+        <div id="forgotStep2" class="modal-body hidden">
+          <!-- Code Delivered Notification Simulation -->
+          <div class="code-banner">
+            <div class="code-banner-content">
+              <span class="code-banner-title">📬 Email Verification Simulator</span>
+              <p>A 6-digit security code was generated for <strong id="sentEmailSpan">your email</strong>:</p>
+              <div class="code-display">
+                <span class="generated-code" id="displayGeneratedCode">------</span>
+                <button type="button" id="quickFillCodeBtn" class="btn-copy-code">Auto-fill Code</button>
+              </div>
+            </div>
+          </div>
+
+          <form id="resetPasswordForm">
+            <div class="form-group">
+              <label for="verificationCode">6-Digit Verification Code</label>
+              <input type="text" id="verificationCode" placeholder="Enter 6-digit code" maxlength="6" class="code-input" required>
+              <span class="field-error" id="verificationCodeError"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="newPassword">New Password</label>
+              <div class="input-icon-wrap">
+                <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <input type="password" id="newPassword" placeholder="Minimum 6 characters" required>
+                <button type="button" class="password-toggle" data-target="newPassword">
+                  <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                </button>
+              </div>
+              <span class="field-error" id="newPasswordError"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="confirmNewPassword">Confirm New Password</label>
+              <div class="input-icon-wrap">
+                <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <input type="password" id="confirmNewPassword" placeholder="Re-enter new password" required>
+                <button type="button" class="password-toggle" data-target="confirmNewPassword">
+                  <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                </button>
+              </div>
+              <span class="field-error" id="confirmNewPasswordError"></span>
+            </div>
+
+            <button type="submit" id="resetPasswordSubmitBtn" class="btn btn-primary btn-block">
+              <span>Change Password & Login</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 13l4 4L19 7"></path>
+              </svg>
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ============================================== -->
+    <!-- 4. STUDENT PORTAL (ஸ்டூடண்ட் போர்டல்) VIEW -->
+    <!-- ============================================== -->
+    <main id="portalView" class="portal-wrapper hidden">
+      
+      <!-- Welcome & Student Identity Card Header -->
+      <section class="portal-hero">
+        <div class="student-profile-strip">
+          <div class="student-avatar" id="portalAvatar">SR</div>
+          <div class="student-meta">
+            <div class="student-title-row">
+              <h1 id="portalStudentName">Swetha Ramesh</h1>
+              <span class="badge badge-verified">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Verified Student
+              </span>
+            </div>
+            <div class="student-details-grid">
+              <div class="detail-item">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 21h18"></path>
+                  <path d="M5 21V7l7-4 7 4v14"></path>
+                </svg>
+                <span id="portalCollegeName">Anna University</span>
+              </div>
+              <div class="detail-item">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                </svg>
+                <span id="portalDepartment">Computer Science and Engineering</span>
+              </div>
+              <div class="detail-item">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                </svg>
+                <span id="portalYear">3rd Year</span>
+              </div>
+              <div class="detail-item">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                </svg>
+                <span id="portalEmail">swetha@college.edu</span>
+              </div>
+              <div class="detail-item">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+                <span id="portalPhone">+91 9876543210</span>
+              </div>
+            </div>
+          </div>
+          <div class="header-action-badge">
+            <span class="status-indicator"></span>
+            <span>Profile Status: Active</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Portal Dashboard Content Grid -->
+      <div class="portal-grid">
+        
+        <!-- Left: Form to fix/configure Career Assets (Resume, GitHub, LinkedIn, LeetCode, Portfolio) -->
+        <section class="portal-card form-panel">
+          <div class="panel-header">
+            <div class="panel-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </div>
+            <div>
+              <h2>Fix & Submit Career Profile Details</h2>
+              <p>Upload your resume via file browser and attach your verified profile links</p>
+            </div>
+          </div>
+
+          <form id="careerProfileForm" novalidate>
+            
+            <!-- 1. RESUME FILE UPLOAD (Browser File Picker) -->
+            <div class="form-group resume-upload-group">
+              <label class="label-with-badge">
+                <span>Resume / CV (Browser File) <span class="required">*</span></span>
+                <span class="badge-tag">PDF, DOC, DOCX (Max 10MB)</span>
+              </label>
+
+              <!-- Drag & Drop / File Input Box -->
+              <div class="file-drop-zone" id="resumeDropZone">
+                <input type="file" id="resumeFileInput" accept=".pdf,.doc,.docx" class="hidden-file-input">
+                <div class="drop-zone-content" id="dropZonePrompt">
+                  <div class="upload-icon-circle">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="17 8 12 3 7 8"></polyline>
+                      <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                  </div>
+                  <div class="drop-text">
+                    <p class="drop-title"><strong>Click to browse files</strong> or drag and drop here</p>
+                    <p class="drop-sub">Supported formats: PDF, DOC, DOCX</p>
+                  </div>
+                  <button type="button" class="btn btn-browse" id="browseFileBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="11" cy="11" r="8"></circle>
+                      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    Browse From Computer
+                  </button>
+                </div>
+
+                <!-- Attached File Info Preview -->
+                <div class="attached-file-info hidden" id="attachedFileInfo">
+                  <div class="file-meta-col">
+                    <div class="file-type-badge" id="fileTypeIcon">PDF</div>
+                    <div class="file-details">
+                      <span class="file-name" id="fileNameDisplay">resume.pdf</span>
+                      <span class="file-size" id="fileSizeDisplay">1.2 MB</span>
+                    </div>
+                  </div>
+                  <div class="file-action-buttons">
+                    <button type="button" class="btn-icon-action" id="previewResumeBtn" title="Inspect / View Resume">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                      </svg>
+                    </button>
+                    <button type="button" class="btn-icon-action danger" id="removeResumeBtn" title="Remove Resume">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <span class="field-error" id="resumeError"></span>
+            </div>
+
+            <!-- Links Group Section -->
+            <div class="links-subheading">
+              <span class="subheading-title">Professional & Coding Links</span>
+              <span class="subheading-note">Provide valid URLs so recruiters can inspect your work</span>
+            </div>
+
+            <!-- 2. GITHUB LINK -->
+            <div class="form-group">
+              <label for="githubLink">
+                <span class="link-label-brand github">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                  </svg>
+                  GitHub Profile Link
+                </span>
+              </label>
+              <div class="input-icon-wrap">
+                <input type="url" id="githubLink" placeholder="https://github.com/your-username" required>
+                <button type="button" class="btn-input-test" data-test="githubLink" title="Test Link in new tab">Test</button>
+              </div>
+              <span class="field-error" id="githubError"></span>
+            </div>
+
+            <!-- 3. LINKEDIN LINK -->
+            <div class="form-group">
+              <label for="linkedinLink">
+                <span class="link-label-brand linkedin">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                  </svg>
+                  LinkedIn Profile Link
+                </span>
+              </label>
+              <div class="input-icon-wrap">
+                <input type="url" id="linkedinLink" placeholder="https://linkedin.com/in/your-profile" required>
+                <button type="button" class="btn-input-test" data-test="linkedinLink" title="Test Link in new tab">Test</button>
+              </div>
+              <span class="field-error" id="linkedinError"></span>
+            </div>
+
+            <!-- 4. LEETCODE LINK -->
+            <div class="form-group">
+              <label for="leetcodeLink">
+                <span class="link-label-brand leetcode">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 4.818 3.555 5.92 5.92 0 0 0 3.06-.554l5.96-3.411a1.372 1.372 0 0 0 .684-1.185v-4.13a1.372 1.372 0 0 0-.684-1.185l-4.14-2.37a1.372 1.372 0 0 0-1.368 0L7.54 8.441l-.973-.973 3.854-4.126A1.374 1.374 0 0 0 13.483 0zm-2.062 8.452l2.766 1.583v2.753l-2.766 1.583-2.766-1.583v-2.753l2.766-1.583z"/>
+                  </svg>
+                  LeetCode Profile Link
+                </span>
+              </label>
+              <div class="input-icon-wrap">
+                <input type="url" id="leetcodeLink" placeholder="https://leetcode.com/u/your-handle" required>
+                <button type="button" class="btn-input-test" data-test="leetcodeLink" title="Test Link in new tab">Test</button>
+              </div>
+              <span class="field-error" id="leetcodeError"></span>
+            </div>
+
+            <!-- 5. PORTFOLIO LINK -->
+            <div class="form-group">
+              <label for="portfolioLink">
+                <span class="link-label-brand portfolio">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                  </svg>
+                  Personal Portfolio Website Link
+                </span>
+              </label>
+              <div class="input-icon-wrap">
+                <input type="url" id="portfolioLink" placeholder="https://yourname.dev" required>
+                <button type="button" class="btn-input-test" data-test="portfolioLink" title="Test Link in new tab">Test</button>
+              </div>
+              <span class="field-error" id="portfolioError"></span>
+            </div>
+
+            <!-- SUBMIT BUTTON AT BOTTOM -->
+            <div class="form-action-footer">
+              <button type="submit" id="saveCareerProfileBtn" class="btn btn-primary btn-large btn-block">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                  <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                  <polyline points="7 3 7 8 15 8"></polyline>
+                </svg>
+                <span>Save & Submit Career Details</span>
+              </button>
+            </div>
+
+          </form>
+        </section>
+
+        <!-- Right: Live Student Career Showcase & Quick Card -->
+        <aside class="portal-card preview-panel">
+          <div class="panel-header">
+            <div class="panel-icon purple">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+              </svg>
+            </div>
+            <div>
+              <h2>Live Student Portfolio Card</h2>
+              <p>Instant visual card visible to placement officers and recruiters</p>
+            </div>
+          </div>
+
+          <div class="recruiter-card">
+            <div class="recruiter-card-header">
+              <div class="badge-row">
+                <span class="status-pill available">Ready for Placement</span>
+                <span class="score-badge">Profile 100%</span>
+              </div>
+              <div class="avatar-large" id="showcaseAvatar">SR</div>
+              <h3 id="showcaseName">Swetha Ramesh</h3>
+              <p class="college-tag" id="showcaseCollege">Anna University</p>
+              <p class="dept-tag" id="showcaseDept">Computer Science and Engineering (3rd Year)</p>
+            </div>
+
+            <div class="recruiter-divider"></div>
+
+            <!-- Resume Download Action -->
+            <div class="resume-showcase-box" id="showcaseResumeBox">
+              <div class="resume-badge-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
+              </div>
+              <div class="resume-badge-details">
+                <span class="badge-label">Curriculum Vitae</span>
+                <span class="badge-filename" id="showcaseResumeName">No resume attached yet</span>
+              </div>
+              <button type="button" class="btn btn-outline-sm" id="downloadResumeAction" disabled>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Download
+              </button>
+            </div>
+
+            <!-- Interactive Verified Links Grid -->
+            <div class="showcase-links-list">
+              <div class="link-item" id="showcaseGithubItem">
+                <div class="link-brand github">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                  </svg>
+                  <span>GitHub</span>
+                </div>
+                <a href="#" target="_blank" rel="noopener noreferrer" class="link-target-badge disabled" id="showcaseGithubLink">
+                  <span>Not set</span>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
+              </div>
+
+              <div class="link-item" id="showcaseLinkedinItem">
+                <div class="link-brand linkedin">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                  </svg>
+                  <span>LinkedIn</span>
+                </div>
+                <a href="#" target="_blank" rel="noopener noreferrer" class="link-target-badge disabled" id="showcaseLinkedinLink">
+                  <span>Not set</span>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
+              </div>
+
+              <div class="link-item" id="showcaseLeetcodeItem">
+                <div class="link-brand leetcode">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 4.818 3.555 5.92 5.92 0 0 0 3.06-.554l5.96-3.411a1.372 1.372 0 0 0 .684-1.185v-4.13a1.372 1.372 0 0 0-.684-1.185l-4.14-2.37a1.372 1.372 0 0 0-1.368 0L7.54 8.441l-.973-.973 3.854-4.126A1.374 1.374 0 0 0 13.483 0zm-2.062 8.452l2.766 1.583v2.753l-2.766 1.583-2.766-1.583v-2.753l2.766-1.583z"/>
+                  </svg>
+                  <span>LeetCode</span>
+                </div>
+                <a href="#" target="_blank" rel="noopener noreferrer" class="link-target-badge disabled" id="showcaseLeetcodeLink">
+                  <span>Not set</span>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
+              </div>
+
+              <div class="link-item" id="showcasePortfolioItem">
+                <div class="link-brand portfolio">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                  </svg>
+                  <span>Portfolio</span>
+                </div>
+                <a href="#" target="_blank" rel="noopener noreferrer" class="link-target-badge disabled" id="showcasePortfolioLink">
+                  <span>Not set</span>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="card-footer-tip">
+              <span>💡 Updates made in the left form update this recruiter card in real-time.</span>
+            </div>
+
+          </div>
+        </aside>
+
+      </div>
+    </main>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
