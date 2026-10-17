@@ -1,0 +1,7 @@
+# Copy this file to .env and add your own keys.
+# Gemini AI extraction and personalized roadmap require a Google AI Studio API key.
+GEMINI_API_KEY=
+GEMINI_MODEL=gemini-2.5-flash
+
+# Optional: improves GitHub API rate limits for public data.
+GITHUB_TOKEN=

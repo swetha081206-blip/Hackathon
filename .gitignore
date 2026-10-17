@@ -1,0 +1,9 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+.streamlit/secrets.toml
+*.pdf
+career_readiness_*.json
+career_readiness_*.pdf
+

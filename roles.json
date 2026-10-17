@@ -1,0 +1,104 @@
+{
+  "Software Engineer": [
+    "Data Structures",
+    "Algorithms",
+    "OOP",
+    "Git",
+    "SQL",
+    "Testing",
+    "System Design",
+    "REST API"
+  ],
+  "Python Developer": [
+    "Python",
+    "OOP",
+    "Git",
+    "SQL",
+    "Testing",
+    "REST API",
+    "Data Structures"
+  ],
+  "Java Developer": [
+    "Java",
+    "OOP",
+    "Data Structures",
+    "SQL",
+    "Git",
+    "Testing",
+    "Spring Boot"
+  ],
+  "Frontend Developer": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "React",
+    "TypeScript",
+    "Git",
+    "REST API"
+  ],
+  "Backend Developer": [
+    "Python",
+    "Java",
+    "SQL",
+    "REST API",
+    "Git",
+    "Data Structures",
+    "Docker",
+    "Database Management"
+  ],
+  "Full-Stack Developer": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "React",
+    "Node.js",
+    "SQL",
+    "Git",
+    "REST API"
+  ],
+  "Data Analyst": [
+    "Python",
+    "SQL",
+    "Excel",
+    "Pandas",
+    "Data Visualization",
+    "Statistics"
+  ],
+  "Data Scientist": [
+    "Python",
+    "Pandas",
+    "Machine Learning",
+    "SQL",
+    "Statistics",
+    "Data Visualization",
+    "NumPy"
+  ],
+  "Machine Learning Engineer": [
+    "Python",
+    "Machine Learning",
+    "Deep Learning",
+    "TensorFlow",
+    "PyTorch",
+    "Pandas",
+    "Git",
+    "Docker"
+  ],
+  "DevOps Engineer": [
+    "Linux",
+    "Docker",
+    "Kubernetes",
+    "CI/CD",
+    "Git",
+    "AWS",
+    "Python",
+    "Bash"
+  ],
+  "UI/UX Designer": [
+    "Figma",
+    "Wireframing",
+    "Prototyping",
+    "User Research",
+    "Accessibility",
+    "Design Systems"
+  ]
+}
